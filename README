@@ -7,7 +7,7 @@ blast_link was designed such that no patches to the wwwblast files are needed. I
 INSTALLATION
 
 1. Git clone (or just download) blast_link into the directory wher you wish blast to reside e.g. "git clone git://github.com/wwood/blast_link.git /var/www/blast"
-2. Download and extract a wwwblast installation from NCBI into the same directory ftp://ftp.ncbi.nih.gov/blast/executables/LATEST/
+2. Download and extract a wwwblast installation from NCBI into the same directory ftp://ftp.ncbi.nih.gov/blast/executables/release/LATEST/
 3. Modify the subroutine at the top of blast_link_result.cgi so the links are to your liking.
 4. Set up a webserver so that it serves blast correctly. For apache an example conf file is below
 5. Point your browser to the blast_link.cgi, so possibly http://localhost/blast/blast_link.cgi
