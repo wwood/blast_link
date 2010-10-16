@@ -93,6 +93,7 @@ while(<OUT>){
   # eg. '><a name = 654></a>Toxoplasma gondii | TGME49_112100 | Ca2+-ATPase'
   if (m/(<a name \= .+?\>\<.a\>)(.+)/){
     # line contains an alignment description.
+    $link = $1;
     $hit_name = $2;
     $hit_name =~ s/<\/a>//;
 
@@ -104,7 +105,7 @@ while(<OUT>){
 
     # Insert thre new replacement text after
     # link from the description.
-    print $1;
+    print $link;
     replace_alignment_name_with_links($hit_name, $datalib, $hit_count);
 
   } elsif(m/<\/form>/) {
