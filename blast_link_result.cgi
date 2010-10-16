@@ -18,7 +18,7 @@ sub replace_alignment_name_with_links {
 
   chomp $name;
   print "<input type='checkbox' name=alignment_seq_$hit_number value='$name'>";
-  print "><a href='get_sequences.pl?database=db/$datalib&hit_count=1&alignment_seq_1=$name'>$name</a>\n";
+  print "><a href='get_sequences.cgi?database=db/$datalib&hit_count=1&alignment_seq_1=$name'>$name</a>\n";
 }
 
 
