@@ -26,7 +26,7 @@ sub replace_alignment_name_with_links {
 # This is evn before the <html> tag, but eh,
 # it works.
 sub insert_at_beginning_of_alignments {
-  print '<form action=get_sequences.pl method=get>';
+  print '<form action=get_sequences.cgi method=get>';
   print "\n\n";
 }
 
