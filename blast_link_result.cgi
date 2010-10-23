@@ -2,7 +2,7 @@
 
 # A blast job is submitted to this script, and this script returns the blast
 # result page with links. The actual code for making the links must be defined
-# by the administrator.
+# by the administrator in the subroutines below.
 
 
 
@@ -10,14 +10,14 @@
 # to this routine is the first line of the sequence in the alignment. The second is
 # the database searched against, eg 'test_na_db'
 # eg. 
-# "><a name = 654></a>Toxoplasma gondii | TGME49_112100 | Ca2+-ATPase" (the first argument)
+# "><a name = 654></a>Toxoplasma gondii | TGME49_112100 | Ca2+-ATPase"
 # might return
 # "><a href=/apiloc/gene/TGME49_112100>Toxoplasma gondii | TGME49_112100 | Ca2+-ATPase</a>"
 sub replace_alignment_name_with_links {
   my ($name, $datalib, $hit_number) = @_;
 
   chomp $name;
-  print "<input type='checkbox' name=alignment_seq_$hit_number value='$name'>";
+  print "<input type='checkbox' name=alignment_seq_$hit_number id=checkbox_$hit_number value='$name'>";
   print "><a href='get_sequences.cgi?database=db/$datalib&hit_count=1&alignment_seq_1=$name'>$name</a>\n";
 }
 
@@ -37,8 +37,28 @@ sub insert_at_beginning_of_alignments {
 sub insert_after_alignments {
   my $number_of_hits = $_[0];
   my $datalib = $_[1];
+
+  # Print javascript for select all button
+  print <<END;
+<script type=text/javascript>
+function selectAll(){
+alert('seelect');
+END
+
+  foreach $hit (1..$number_of_hits){
+    print "document.getElementById('checkbox_$hit').checked = true;\n";
+  }
+  print <<END;
+}
+</script>
+END
+
+  # Print HTML form hidden inputs needed for "get selected sequences" button to work
   print "<input type=hidden name='hit_count' value=$number_of_hits />\n";
   print "<input type=hidden name='database' value=db/$datalib />\n";
+  # Print select all button
+  print "<input type=button onclick=\"javascript:selectAll()\" value='Select All' />";
+  # Print get selected sequences button
   print "<input type=submit value='Get Selected Sequences'></form>\n";
 }
 
