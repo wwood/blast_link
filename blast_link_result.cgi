@@ -42,7 +42,6 @@ sub insert_after_alignments {
   print <<END;
 <script type=text/javascript>
 function selectAll(){
-alert('seelect');
 END
 
   foreach $hit (1..$number_of_hits){
