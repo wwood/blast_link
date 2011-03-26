@@ -1,24 +1,12 @@
 INTRODUCTION
 
-A few scripts for turning a vanilla NCBI wwwblast installation into a link filled paradise.
+A few scripts for turning a vanilla NCBI wwwblast installation into a version that allows access to the full sequences of hits to query sequences. More generally, it allows arbitrary hyperlinks to be added blast result pages.
 
-blast_link was designed such that no patches to the wwwblast files are needed. Instead, it wraps around the server and parses the input and output using regular expressions. Thus, updating wwwblast is simple, and does not affect blast_link.
+Blast_link was designed such that no patches to the wwwblast files are needed. Instead, it wraps around the server and parses the input and output using regular expressions. Thus, updating wwwblast is simple, and does not affect blast_link.
 
 INSTALLATION
 
-1. Git clone (or just download) blast_link into the directory wher you wish blast to reside e.g. "git clone git://github.com/wwood/blast_link.git /var/www/blast"
-2. Download and extract a wwwblast installation from NCBI into the same directory ftp://ftp.ncbi.nih.gov/blast/executables/release/LATEST/
-3. Modify the subroutine at the top of blast_link_result.cgi so the links are to your liking.
-4. Set up a webserver so that it serves blast correctly. For apache an example conf file is below
-5. Point your browser to the blast_link.cgi, so possibly http://localhost/blast/blast_link.cgi
-
-EXAMPLE APACHE CONFIG
-
-AddHandler cgi-script .cgi .pl
-Alias blast /var/www/blast
-<Directory "/var/www/blast">
-  Options FollowSymLinks +ExecCGI +Indexes
-</Directory>
+A comprehensive tutorial on using wwwblast and blast_link is maintained at http://openwetware.org/wiki/Blast_link
 
 LICENSE
 
