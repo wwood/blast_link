@@ -1,5 +1,13 @@
 #!/usr/bin/perl
 
+# This script extracts sequences from a blast formated binary sequence
+# database. It requires that the sequence IDs have been parsed. An
+# example to create a  database
+# $ makeblastdb -in my.fasta -parse_seqids
+# 
+# or using the legacy blast,
+# $ formatdb -i my.fasta -o
+
 # Specify the way in which sequences should be extracted from the database.
 # By default, use the BLAST+ program blastdbcmd.
 # Change this constant to 'fastacmd' to use the legacy BLAST version instead.
