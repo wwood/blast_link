@@ -10,7 +10,6 @@ my $BLAST_DB_EXTRACT_METHOD = 'blastdbcmd';
 print "Content-type: text/html\n\n";
 
 use CGI;
-use CGI::Upload;
 require File::Temp;
 
 $form = new CGI;
