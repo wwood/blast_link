@@ -68,11 +68,12 @@ for my $id (@identifiers){
   # specify the command to extract data from the databases
   my $cmd = undef;
   if ($BLAST_DB_EXTRACT_METHOD eq 'blastdbcmd'){
-    $cmd = "blastdbcmd -db '$db' -entry '$first_id' 2>/dev/fd/".fileno($temp_err_fh);
+    $cmd = "blastdbcmd -db '$db' -entry '$first_id' >/dev/fd/".fileno($temp_out_fh)." 2>/dev/fd/".fileno($temp_err_fh);
   } 
   elsif ($BLAST_DB_EXTRACT_METHOD eq 'fastacmd'){
-    $cmd = "fastacmd -d '$db' -s '$first_id' 2>/dev/fd/".fileno($temp_err_fh);
+    $cmd = "fastacmd -d '$db' -s '$first_id' >/dev/fd/".fileno($temp_out_fh)." 2>/dev/fd/".fileno($temp_err_fh);
   }
+  #print $cmd."\n";
 
   # Was this script setup properly?
   if (defined($cmd)){
@@ -87,9 +88,19 @@ for my $id (@identifiers){
       print "<p>Database used was `$db', and the entry to extract was `$first_id'</p>";
       print "The command line used to extract the sequences was <pre>`$cmd'</pre>";
     } else {
-      # all good. Print the sequences.
+      # No problems running the command. Was the expected number of sequences retrieved?
+      my $count_retrieved = 0;
+      my @fasta_lines = ();
+      foreach (<$temp_out_fh>){
+        push @fasta_lines, $_; #cache the line for output later
+        $count_retrieved += 1 if m/^>/;#increment for each line starting with '>'
+      }
+      unless ($count_retrieved == $#identifiers+1){
+        print '<b>WARNING: Expected to retreive '.($#identifiers+1).' sequences, but '.$count_retrieved.' were retrieved</b>';
+      }
+      # Print the sequences, even if the count wasn't right for best effort.
       print "<p>\n";
-      print <$temp_out_fh>;
+      foreach $i (0..$#fasta_lines){print $fasta_lines[$i];}
       print '</p>';
     }
   } else {
